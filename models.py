@@ -28,6 +28,11 @@ class User(db.Model):
                             nullable=True,
                             default=DEFAULT_IMAGE_URL)
 
+    posts = db.relationship('Post',
+                            backref="user",
+                            cascade="all, delete-orphan")
+
+
     def __repr__(self):
         """Show info about user."""
 
@@ -44,3 +49,29 @@ class User(db.Model):
         """Return full name"""
 
         return f"{self.first_name} {self.last_name}"
+
+class Post(db.Model):
+    """Post"""
+
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer,
+                    primary_key=True,
+                    autoincrement=True)
+    title = db.Column(db.Text,
+                      nullable=False)
+    content = db.Column(db.Text,
+                        nullable=False)
+    create_at = db.Column(db.DateTime,
+                            nullable=False)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.id'))
+
+    @property
+    def friendly_date(self):
+        """Get user read friendly date time"""
+
+        return self.create_at.strftime("%a %b %-d  %Y, %-I:%M %p")
+
+
+

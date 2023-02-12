@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
-{% block title %} Users {% endblock %}
+{% block title %} Homepage {% endblock %}
 
 {% block content %}
-    <h1>Users</h1>
-    <ul>
-        {% for user in users %}
-        <li><a href="/users/{{ user.id }}">{{ user.full_name }}</a></li>
+    <h1>Blogly Recent Posts</h1>
+    <div>
+        {% for post in posts %}
+        <h2>
+            {{ post.title }}
+        </h2>
+        <p>{{ post.content }}</p>
+        <p>By {{ post.user.full_name }} on {{ post.friendly_date }}</p>
         {% endfor %}
-    </ul>
-    <form action="/users/new">
-        <button>Add user</button>
-    </form>
+    </div>
 {% endblock %}

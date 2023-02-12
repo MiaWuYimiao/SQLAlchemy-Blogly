@@ -2,17 +2,28 @@
 {% block title %} Users {% endblock %}
 
 {% block content %}
-    <h1>User Detail Page</h1>
     <div>
         <img src="{{user.image_url}}" alt="">
     </div>
+
     <div>
         <h2>{{user.full_name}}</h2>
+        <form>
+            <div class="d-grid gap-2 d-md-flex">
+                <button class="btn btn-primary me-md-2" formaction="/users/{{user.id}}/edit">Edit</button>
+                <button class="btn btn-danger" formaction="/users/{{user.id}}/delete" formmethod="POST">Delete</button>
+            </div>
+        </form>
+
+            <h3>Posts</h3>
+            <ul>
+                {% for post in posts %}
+                <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+                {% endfor %}
+            </ul>
+            <form>
+                <button class="btn btn-primary btn-lg" formaction="/users/{{ user.id }}/posts/new" formmethod="GET">Add Post</button>
+            </form>
     </div>
-    <form action="/users/{{user.id}}/edit">
-        <button>Edit</button>
-    </form>
-    <form action="/users/{{user.id}}/delete">
-        <button>Delete</button>
-    </form>
+
 {% endblock %}
