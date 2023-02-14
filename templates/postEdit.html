@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Users {% endblock %}
+{% block title %} Edit Post {% endblock %}
 
 {% block content %}
     <h1>Edit Post</h1>
@@ -10,7 +10,14 @@
         </div>
         <div class="mb-3">
             <label for="content">Post Content</label>
-            <textarea class="form-control" placeholder="{{ post.content }}" id="content" name="content" value="{{ post.content }}"></textarea>
+            <textarea class="form-control" placeholder="{{ post.content }}" id="content" name="content" value="{{ post.content }}">{{ post.content }}</textarea>
+        </div>
+        <div class="control-group">
+            {% for tag in tags %}
+                <div class="controls">
+                    <input type="checkbox" name="taglist" value="{{ tag.id }}" {{'checked' if tag in post.tags else ''}}> {{ tag.name }} <br/>
+                </div>
+            {% endfor %}
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-outline-primary me-md-2" formaction="/users/{{post.user_id}}">Cancel</button>

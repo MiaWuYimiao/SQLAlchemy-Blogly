@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Add Tag {% endblock %}
+
+{% block content %}
+    <h1>Create a tag</h1>
+    <form class="row g-3">
+        <div>
+            <label for="tagname">Name</label>
+            <input type="text" class="form-control" id="tagname" name ="tagname">
+        </div>
+        <div class="control-group">
+            {% for post in posts %}
+                <div class="controls">
+                    <input type="checkbox" name="postlist" value="{{ post.id }}"> {{ post.title }} <br/>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-outline-primary me-md-2" formaction="/tags">Cancel</button>
+            <button class="btn btn-success" type="submit" formmethod="POST">Add</button>
+        </div>
+    </form>
+{% endblock %}

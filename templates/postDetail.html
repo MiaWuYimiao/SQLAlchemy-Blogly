@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Users {% endblock %}
+{% block title %} Posts {% endblock %}
 
 {% block content %}
     <h1>{{ post.title }}</h1>
@@ -9,6 +9,14 @@
 
     <div>
         <p class="fst-italic">By {{ post.user.full_name }} on {{ post.friendly_date }}</p>
+    </div>
+
+    <div>
+        <p class="fw-bold"> Tags:
+            {% for tag in post.tags %}
+            <span class="badge bg-primary fst-italic">{{ tag.name }} </span>
+            {% endfor %}
+        </p>
     </div>
     <div>
         <form>

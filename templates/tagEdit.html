@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} Edit Tag {% endblock %}
+
+{% block content %}
+    <h1>Edit a tag</h1>
+    <form class="row g-3">
+        <div>
+            <label for="tagname">Name</label>
+            <input type="text" class="form-control" placeholder="{{ tag.name }}" id="tagname" name="tagname" value="{{ tag.name }}">
+        </div>
+        <div class="control-group">
+            {% for post in posts %}
+                <div class="controls">
+                    <input type="checkbox" name="postlist" value="{{ post.id }}" {{'checked' if post in tag.posts else ''}}> {{ post.title }} <br/>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-outline-primary" formaction="/tags/{{ tag.id }}">Cancel</button>
+            <button class="btn btn-success" formaction="/tags/{{ tag.id }}/edit" formmethod="POST">Edit</button>
+        </div>
+
+    </form>
+{% endblock %}

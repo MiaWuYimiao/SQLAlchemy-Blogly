@@ -67,6 +67,11 @@ class Post(db.Model):
     user_id = db.Column(db.Integer,
                         db.ForeignKey('users.id'))
 
+    # direct navigation: post -> tag & back
+    tags = db.relationship('Tag',
+                            secondary='posts_tags',
+                            backref='posts')
+
     @property
     def friendly_date(self):
         """Get user read friendly date time"""
@@ -74,4 +79,23 @@ class Post(db.Model):
         return self.create_at.strftime("%a %b %-d  %Y, %-I:%M %p")
 
 
+class Tag(db.Model):
+    """Tag"""
 
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+
+class PostTag(db.Model):
+    """Mapping of a tag to a post."""
+
+    __tablename__ = "posts_tags"
+
+    post_id = db.Column(db.Integer,
+                        db.ForeignKey("posts.id"),
+                        primary_key=True)
+    tag_id = db.Column(db.Integer,
+                        db.ForeignKey("tags.id"),
+                        primary_key=True)
